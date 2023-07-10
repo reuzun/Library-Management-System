@@ -1,0 +1,13 @@
+﻿using System;
+namespace LibMs.Data.Entities
+{
+	public class BookAuthor : IEntity
+	{
+        public Guid BookId { get; set; }
+        public Book Book { get; set; }
+
+        public Guid AuthorId { get; set; }
+        public Author Author { get; set; }
+	}
+}
+

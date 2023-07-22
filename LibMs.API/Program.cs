@@ -1,8 +1,12 @@
 ﻿
+using LibMs.API;
 using LibMs.Persistance;
 using LibMS.Business;
 using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Serilog;
+
 
 namespace LibMs
 {
@@ -11,6 +15,17 @@ namespace LibMs
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            AppSettings appSettings = new AppSettings();
+            builder.Configuration.Bind(appSettings);
+            // AppSettings appSettings = builder.Configuration.Get<AppSettings>();
+            builder.Services.AddSingleton(appSettings);
+
+            builder.Services.AddDbContext<LibMSContext>((options) =>
+            {
+                options
+                    .UseNpgsql(appSettings.Database.ConnectionString);
+            });
 
             builder.Host.UseSerilog((hostContext, services, configuration) =>
             {

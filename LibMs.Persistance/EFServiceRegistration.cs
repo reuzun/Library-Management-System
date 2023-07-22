@@ -10,12 +10,6 @@ namespace LibMs.Persistance
     {
         public static void AddEFRegistrations(this IServiceCollection services)
         {
-            services.AddDbContext<LibMSContext>((options) =>
-            {
-                options
-                    .UseNpgsql("User Id=postgres; Password=123456; Host=localhost; Port=5432; DataBase=LibMS;");
-            });
-
             // Assuming all your entity types implement the IEntity interface
             IEnumerable<Type> entityTypes = typeof(IEntity).Assembly.GetTypes()
                 .Where(t => typeof(IEntity).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);

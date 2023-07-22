@@ -4,8 +4,8 @@ using LibMs.Data.Entities;
 
 namespace LibMs.Data.Repositories
 {
-	public interface IBookRepository : IRepository<Book>
-	{
+	public interface IBookRepository : IRepository<Book>, IODataRepository<Book>
+    {
     }
 }
 

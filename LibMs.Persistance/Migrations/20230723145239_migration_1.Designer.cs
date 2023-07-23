@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace LibMs.Persistance.Migrations
+namespace LibMS.Persistance.Migrations
 {
     [DbContext(typeof(LibMSContext))]
-    [Migration("20230710103554_migration_1")]
+    [Migration("20230723145239_migration_1")]
     partial class migration_1
     {
         /// <inheritdoc />
@@ -38,6 +38,21 @@ namespace LibMs.Persistance.Migrations
                     b.HasIndex("WrittenBooksBookId");
 
                     b.ToTable("AuthorBook");
+                });
+
+            modelBuilder.Entity("BookUser", b =>
+                {
+                    b.Property<Guid>("LoanedBooksBookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UsersUserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("LoanedBooksBookId", "UsersUserId");
+
+                    b.HasIndex("UsersUserId");
+
+                    b.ToTable("BookUser");
                 });
 
             modelBuilder.Entity("LibMs.Data.Entities.Author", b =>
@@ -67,7 +82,8 @@ namespace LibMs.Persistance.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<byte>("LoanableCount")
                         .HasColumnType("smallint");
@@ -78,29 +94,12 @@ namespace LibMs.Persistance.Migrations
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<byte>("TotalCount")
+                        .HasColumnType("smallint");
 
                     b.HasKey("BookId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("LibMs.Data.Entities.BookAuthor", b =>
-                {
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("AuthorId", "BookId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookAuthors");
                 });
 
             modelBuilder.Entity("LibMs.Data.Entities.User", b =>
@@ -150,30 +149,19 @@ namespace LibMs.Persistance.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LibMs.Data.Entities.Book", b =>
+            modelBuilder.Entity("BookUser", b =>
                 {
+                    b.HasOne("LibMs.Data.Entities.Book", null)
+                        .WithMany()
+                        .HasForeignKey("LoanedBooksBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("LibMs.Data.Entities.User", null)
-                        .WithMany("LoanedBooks")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("LibMs.Data.Entities.BookAuthor", b =>
-                {
-                    b.HasOne("LibMs.Data.Entities.Author", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LibMs.Data.Entities.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("LibMs.Data.Entities.UserLoanBook", b =>
@@ -193,11 +181,6 @@ namespace LibMs.Persistance.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LibMs.Data.Entities.User", b =>
-                {
-                    b.Navigation("LoanedBooks");
                 });
 #pragma warning restore 612, 618
         }

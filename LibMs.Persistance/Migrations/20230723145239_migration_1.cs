@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LibMs.Persistance.Migrations
+namespace LibMS.Persistance.Migrations
 {
     /// <inheritdoc />
     public partial class migration_1 : Migration
@@ -25,6 +25,23 @@ namespace LibMs.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BookName = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    PageCount = table.Column<int>(type: "integer", nullable: false),
+                    PublishDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    TotalCount = table.Column<byte>(type: "smallint", nullable: false),
+                    LoanableCount = table.Column<byte>(type: "smallint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.BookId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -35,28 +52,6 @@ namespace LibMs.Persistance.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Books",
-                columns: table => new
-                {
-                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BookName = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    PageCount = table.Column<int>(type: "integer", nullable: false),
-                    PublishDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LoanableCount = table.Column<byte>(type: "smallint", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Books", x => x.BookId);
-                    table.ForeignKey(
-                        name: "FK_Books_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -84,26 +79,26 @@ namespace LibMs.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookAuthors",
+                name: "BookUser",
                 columns: table => new
                 {
-                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "uuid", nullable: false)
+                    LoanedBooksBookId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UsersUserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookAuthors", x => new { x.AuthorId, x.BookId });
+                    table.PrimaryKey("PK_BookUser", x => new { x.LoanedBooksBookId, x.UsersUserId });
                     table.ForeignKey(
-                        name: "FK_BookAuthors_Authors_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Authors",
-                        principalColumn: "AuthorId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BookAuthors_Books_BookId",
-                        column: x => x.BookId,
+                        name: "FK_BookUser_Books_LoanedBooksBookId",
+                        column: x => x.LoanedBooksBookId,
                         principalTable: "Books",
                         principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookUser_Users_UsersUserId",
+                        column: x => x.UsersUserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -137,14 +132,9 @@ namespace LibMs.Persistance.Migrations
                 column: "WrittenBooksBookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookAuthors_BookId",
-                table: "BookAuthors",
-                column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Books_UserId",
-                table: "Books",
-                column: "UserId");
+                name: "IX_BookUser_UsersUserId",
+                table: "BookUser",
+                column: "UsersUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserLoanBooks_BookId",
@@ -159,7 +149,7 @@ namespace LibMs.Persistance.Migrations
                 name: "AuthorBook");
 
             migrationBuilder.DropTable(
-                name: "BookAuthors");
+                name: "BookUser");
 
             migrationBuilder.DropTable(
                 name: "UserLoanBooks");

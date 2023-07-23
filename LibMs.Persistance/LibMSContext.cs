@@ -9,10 +9,13 @@ namespace LibMs.Persistance
         DbSet<Book> Books { get; set; }
         DbSet<User> Users { get; set; }
         DbSet<Author> Authors { get; set; }
-        DbSet<BookAuthor> BookAuthors { get; set; }
-        DbSet<UserLoanBook> UserLoanBooks { get; set; }
 
         public LibMSContext(DbContextOptions options) : base(options) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,12 +34,6 @@ namespace LibMs.Persistance
             modelBuilder.Entity<Book>()
                 .Property(book => book.Description)
                 .HasMaxLength(500);
-
-            modelBuilder.Entity<BookAuthor>()
-                .HasKey(p => new { p.AuthorId, p.BookId });
-
-            modelBuilder.Entity<UserLoanBook>()
-                .HasKey(p => new { p.UserId, p.BookId });
         }
     }
 }

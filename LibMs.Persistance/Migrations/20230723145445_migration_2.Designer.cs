@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace LibMs.Persistance.Migrations
+namespace LibMS.Persistance.Migrations
 {
     [DbContext(typeof(LibMSContext))]
-    [Migration("20230710104316_migration_2")]
+    [Migration("20230723145445_migration_2")]
     partial class migration_2
     {
         /// <inheritdoc />
@@ -82,7 +82,8 @@ namespace LibMs.Persistance.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<byte>("LoanableCount")
                         .HasColumnType("smallint");
@@ -93,24 +94,12 @@ namespace LibMs.Persistance.Migrations
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<byte>("TotalCount")
+                        .HasColumnType("smallint");
+
                     b.HasKey("BookId");
 
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("LibMs.Data.Entities.BookAuthor", b =>
-                {
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("AuthorId", "BookId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookAuthors");
                 });
 
             modelBuilder.Entity("LibMs.Data.Entities.User", b =>
@@ -128,21 +117,6 @@ namespace LibMs.Persistance.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("LibMs.Data.Entities.UserLoanBook", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BookId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("UserId", "BookId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("UserLoanBooks");
                 });
 
             modelBuilder.Entity("AuthorBook", b =>
@@ -173,44 +147,6 @@ namespace LibMs.Persistance.Migrations
                         .HasForeignKey("UsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LibMs.Data.Entities.BookAuthor", b =>
-                {
-                    b.HasOne("LibMs.Data.Entities.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LibMs.Data.Entities.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("LibMs.Data.Entities.UserLoanBook", b =>
-                {
-                    b.HasOne("LibMs.Data.Entities.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LibMs.Data.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

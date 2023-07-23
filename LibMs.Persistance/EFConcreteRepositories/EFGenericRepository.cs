@@ -46,13 +46,21 @@ namespace LibMs.Persistance.EFConcreteRepositories
             return await rows.FirstOrDefaultAsync();
         }
 
-        public async void AsyncRemove(Guid objId)
+        public async Task AsyncRemove(Guid objId)
         {
             var book = await _context.Set<T>().FindAsync(objId);
             if (book != null)
             {
                 _context.Set<T>().Remove(book);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }catch(Exception e)
+                {
+                    Console.WriteLine("------------------");
+                    Console.WriteLine(e);
+                    Console.WriteLine("------------------");
+                }
             }
         }
 

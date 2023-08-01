@@ -3,6 +3,7 @@ using System;
 using LibMs.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LibMS.Persistance.Migrations
 {
     [DbContext(typeof(LibMSContext))]
-    partial class LibMSContextModelSnapshot : ModelSnapshot
+    [Migration("20230723165436_migration_3")]
+    partial class migration_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +62,6 @@ namespace LibMS.Persistance.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("AuthorName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("BirthYear")
@@ -89,7 +91,7 @@ namespace LibMS.Persistance.Migrations
                     b.Property<int>("PageCount")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("PublishDate")
+                    b.Property<int>("PublishDate")
                         .HasColumnType("integer");
 
                     b.Property<byte>("TotalCount")

@@ -4,16 +4,19 @@ using LibMs.Data.Dtos;
 using LibMs.Data.Entities;
 using LibMs.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace LibMs.Persistance.EFConcreteRepositories
 {
     public class EFGenericRepository<T> : IODataRepository<T>, IRepository<T> where T : class, IEntity, new()
     {
         LibMSContext _context;
+        IMapper _mapper;
 
-        public EFGenericRepository(LibMSContext context)
+        public EFGenericRepository(LibMSContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void AsyncCreate(T obj)
@@ -64,9 +67,12 @@ namespace LibMs.Persistance.EFConcreteRepositories
             }
         }
 
-        public void AsyncUpdate(Guid objId, object obj)
+        public async Task<T> AsyncUpdate(Guid objId, T obj)
         {
-            throw new NotImplementedException(); ;
+            var entity = await _context.Set<T>().FindAsync(objId);
+            entity = _mapper.Map(obj, entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
         public IQueryable<T> ReadAll()

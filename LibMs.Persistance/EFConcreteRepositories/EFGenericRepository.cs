@@ -19,10 +19,11 @@ namespace LibMs.Persistance.EFConcreteRepositories
             _mapper = mapper;
         }
 
-        public void AsyncCreate(T obj)
+        public async Task<T> AsyncCreate(T obj)
         {
-            _context.Set<T>().AddAsync(obj);
-            _context.SaveChangesAsync();
+            await _context.Set<T>().AddAsync(obj);
+            await _context.SaveChangesAsync();
+            return obj;
         }
 
         public async Task<IEnumerable<T>> AsyncReadAll(Func<IQueryable<T>, IQueryable<T>>? query = null)

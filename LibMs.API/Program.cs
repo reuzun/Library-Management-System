@@ -1,10 +1,12 @@
 ﻿
+using System.Text.Json.Serialization;
 using LibMs.API;
 using LibMs.Persistance;
 using LibMS.Business;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Serilog;
 
 
@@ -46,6 +48,12 @@ namespace LibMs
             builder.Services.AddControllers().AddOData(options =>
             {
                 options.Select().Filter().Expand().OrderBy().Count().SetMaxTop(null);
+            });
+
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                // Use ReferenceHandler.Preserve to handle circular references.
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
 
 

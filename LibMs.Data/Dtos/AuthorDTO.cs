@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace LibMs.Data.Dtos
 {
 	public class AuthorDTO
 	{
-        string? AuthorName { get; set; }
-        DateTime BirthYear { get; set; }
+        public string? AuthorName { get; set; }
+        public DateTime BirthYear { get; set; }
 	}
 }
 

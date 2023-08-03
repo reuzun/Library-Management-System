@@ -16,7 +16,7 @@ namespace LibMs.API.Controllers
 		}
 
 
-        [HttpGet("")]
+        [HttpGet("settings")]
         public IActionResult GetAllBooks()
         {
             return Ok(_settings);

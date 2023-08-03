@@ -1,7 +1,7 @@
 ﻿using System;
 namespace LibMs.Data.Entities
 {
-	public class BookAuthor : IEntity
+	public class BookAuthor
 	{
         public Guid BookId { get; set; }
         public Book Book { get; set; }

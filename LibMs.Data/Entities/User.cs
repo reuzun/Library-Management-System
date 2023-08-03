@@ -6,7 +6,7 @@ namespace LibMs.Data.Entities
 		public Guid UserId { get; set; }
         public string? Username { get; set; }
         public string? Email { get; set; }
-        public IEnumerable<Book> LoanedBooks { get; set; }
+        public ICollection<Book> LoanedBooks { get; set; }
 	}
 }
 

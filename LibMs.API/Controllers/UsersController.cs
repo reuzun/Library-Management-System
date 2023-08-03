@@ -11,10 +11,12 @@ namespace LibMs.API.Controllers
     public class UsersController : ControllerBase
 	{
         IUserService _userService;
+        AppSettings _settings;
 
-		public UsersController(IUserService userService)
+		public UsersController(IUserService userService, AppSettings settings)
 		{
             _userService = userService;
+            _settings = settings;
 		}
 
         [HttpGet("{guid}")]
@@ -32,7 +34,7 @@ namespace LibMs.API.Controllers
         [HttpPost("{guid}/books")]
         public async Task<IActionResult> RegisterBorrowBook(Guid guid, Guid bookId)
         {
-            return Created("", await _userService.BorrowBook(guid, bookId));
+            return Created("", await _userService.BorrowBook(guid, bookId, _settings.AllowedBookLoanCount));
         }
     }
 }

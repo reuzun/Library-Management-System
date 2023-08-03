@@ -1,6 +1,10 @@
 ﻿
 using System.Text.Json.Serialization;
 using LibMs.API;
+using LibMs.API.Attributes;
+using LibMs.API.Cache;
+using LibMs.API.Cache.Concretes;
+using LibMs.API.Settings;
 using LibMs.Persistance;
 using LibMS.Business;
 using Microsoft.AspNetCore.OData;
@@ -20,6 +24,21 @@ namespace LibMs
 
             AppSettings appSettings = new AppSettings();
             builder.Configuration.Bind(appSettings);
+
+            if (appSettings.CacheSettings.Provider == "MemoryCache")
+            {
+                builder.Services.AddMemoryCache();
+                builder.Services.AddSingleton<ICacheService, MemoryCacheService>();
+            }
+            else if (appSettings.CacheSettings.Provider == "RedisCache")
+            {
+                builder.Services.AddStackExchangeRedisCache(options =>
+                {
+                    options.Configuration = appSettings.CacheSettings.ConnectionString;
+                });
+                builder.Services.AddSingleton<ICacheService, RedisCacheService>();
+            }
+
             // AppSettings appSettings = builder.Configuration.Get<AppSettings>();
             builder.Services.AddSingleton(appSettings);
 
@@ -33,6 +52,8 @@ namespace LibMs
             {
                 configuration.WriteTo.Console();
             });
+
+            // builder.Services.AddScoped<CacheAttribute>();
 
             // Add services to the container.
 

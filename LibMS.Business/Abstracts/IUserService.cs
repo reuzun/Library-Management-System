@@ -8,7 +8,7 @@ namespace LibMS.Business.Abstracts
 	{
 		Task<User> ReadUser(Guid id);
         Task<User> AddUser(UserDTO userDto);
-        Task<User> BorrowBook(Guid userId, Guid bookId);
+        Task<User> BorrowBook(Guid userId, Guid bookId, ushort maxAllowedBookLoanCount = 3);
 	}
 }
 

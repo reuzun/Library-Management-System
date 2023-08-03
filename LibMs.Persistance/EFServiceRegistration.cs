@@ -20,6 +20,8 @@ namespace LibMs.Persistance
                 Type repositoryInterfaceType = typeof(IRepository<>).MakeGenericType(entityType);
                 services.AddScoped(repositoryInterfaceType, repositoryType);
             }
+
+            services.AddScoped<ITransactionManager, EFTransactionManager>();
         }
     }
 }

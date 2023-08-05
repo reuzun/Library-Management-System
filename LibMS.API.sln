@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMs.Data", "LibMS.Data\LibMS.Data.csproj", "{90983342-1941-4E7A-9526-5B7D064167A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMS.Data", "LibMS.Data\LibMS.Data.csproj", "{90983342-1941-4E7A-9526-5B7D064167A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMs.Persistance", "LibMS.Persistance\LibMS.Persistance.csproj", "{297D31C0-0A1E-4A4D-932F-169B50D15C45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMS.Persistance", "LibMS.Persistance\LibMS.Persistance.csproj", "{297D31C0-0A1E-4A4D-932F-169B50D15C45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMS.API", "LibMs.API\LibMS.API.csproj", "{C7010EF4-C827-4491-9551-458E88CDE4F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMS.API", "LibMS.API\LibMS.API.csproj", "{C7010EF4-C827-4491-9551-458E88CDE4F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMS.Business", "LibMS.Business\LibMS.Business.csproj", "{6A9A29B5-9639-4862-B846-7B2897477070}"
 EndProject

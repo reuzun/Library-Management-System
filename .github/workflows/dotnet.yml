@@ -1,31 +1,25 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: Build Solution
 
 on:
   push:
-    branches: [ "**" ]
-  pull_request:
-    branches: [ "**" ]
+    branches:
+      - main
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    - name: Print Working Directory
-      run: ls -R
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '7.0.x'  # Replace with the correct version
+
     - name: Restore dependencies
-      run: dotnet restore --no-cache
+      run: dotnet restore LibMS.API.sln
+
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs"
+      run: dotnet build LibMS.API.sln

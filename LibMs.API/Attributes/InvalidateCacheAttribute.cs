@@ -17,12 +17,13 @@ namespace LibMs.API.Attributes
             _keyToDel = key;
 		}
 
-        public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             _cache = context.HttpContext.RequestServices.GetRequiredService<ICacheService>();
             _cache.RemoveAsync(_keyToDel);
             Log.Information($"Cache: key {_keyToDel} is invalidated!");
-            return Task.CompletedTask;
+
+            await next();
         }
     }
 }

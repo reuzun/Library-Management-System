@@ -40,7 +40,8 @@ namespace LibMs.API.Controllers
         [InvalidateCache("/Books")]
         public async Task<IActionResult> AddBook([FromBody] BookDTO bookDto)
         {
-            return Created("", await _bookService.AddBookAsync(bookDto));
+            var book = await _bookService.AddBookAsync(bookDto);
+            return Created("/Books/" + book.BookId, book);
         }
 
         [HttpPut("{guid}")]

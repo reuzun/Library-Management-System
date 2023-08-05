@@ -19,9 +19,9 @@ namespace LibMS.Business.Concretes
             _mapper = mapper;
         }
 
-        public async Task<Book> AddBookAsync(BookDTO bookDto)
+        public Task<Book> AddBookAsync(BookDTO bookDto)
         {
-            return await _bookRepository.AsyncCreate(_mapper.Map<Book>(bookDto));
+            return _bookRepository.AsyncCreate(_mapper.Map<Book>(bookDto));
         }
 
         public async Task<BookDTO> DeleteBookAsync(Guid bookId)

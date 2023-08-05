@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMs.API", "LibMs.API\LibM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMS.Business", "LibMS.Business\LibMS.Business.csproj", "{6A9A29B5-9639-4862-B846-7B2897477070}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibMS.Test", "LibMS.Test\LibMS.Test.csproj", "{A1FB5C48-E4C6-4BDD-A68B-1FDCD35EF762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6A9A29B5-9639-4862-B846-7B2897477070}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A9A29B5-9639-4862-B846-7B2897477070}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A9A29B5-9639-4862-B846-7B2897477070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1FB5C48-E4C6-4BDD-A68B-1FDCD35EF762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1FB5C48-E4C6-4BDD-A68B-1FDCD35EF762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1FB5C48-E4C6-4BDD-A68B-1FDCD35EF762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1FB5C48-E4C6-4BDD-A68B-1FDCD35EF762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

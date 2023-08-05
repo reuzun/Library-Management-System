@@ -23,7 +23,7 @@ jobs:
     - name: Project Lookup
       run: ls
     - name: Test
-      run: cd LibMS
+      run: cd LibMs
     - name: Restore dependencies
       run: dotnet restore
     - name: Build

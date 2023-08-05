@@ -8,7 +8,13 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+          os: [ubuntu-latest, windows-latest, macos-latest]
+          node-version: [12.x]
+
 
     steps:
     - name: Checkout code
@@ -19,11 +25,11 @@ jobs:
       with:
         dotnet-version: '7.0.x'  # Replace with the correct version
 
-    - name: CurrentDir
-      run: pwd
-
     - name: Restore dependencies
-      run: dotnet restore LibMS.API.sln
+      run: dotnet restore LibMS.API.sln --no-cache
 
     - name: Build
-      run: dotnet build LibMS.API.sln
+      run: dotnet build LibMS.API.sln --no-restore
+
+    - name: Test
+      run: dotnet build LibMS.API.sln --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs"

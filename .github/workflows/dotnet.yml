@@ -22,6 +22,8 @@ jobs:
         dotnet-version: 7.0.x
     - name: Project Lookup
       run: ls
+    - name: Test
+      run: cd LibMS
     - name: Restore dependencies
       run: dotnet restore
     - name: Build

@@ -20,10 +20,8 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Project Lookup
-      run: ls
-    - name: Test
-      run: cd LibMs
+
+
     - name: Restore dependencies
       run: dotnet restore
     - name: Build

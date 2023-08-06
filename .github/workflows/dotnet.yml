@@ -53,7 +53,7 @@ jobs:
 
     - name: Extract Coverage
       run: |
-        COVERAGE=${{needs.job1.outputs.output1}}
+        COVERAGE=${{needs.job1.outputs.coverage}}
         echo "Coverage: $COVERAGE"
 
     - name: Update Badge

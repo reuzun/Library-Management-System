@@ -1,8 +1,8 @@
 ﻿using System;
-using LibMs.API.Cache;
-using LibMs.API.Cache.Concretes;
+using LibMS.API.Cache;
+using LibMS.API.Cache.Concretes;
 
-namespace LibMs.API
+namespace LibMS.API
 {
     public class CacheServiceFactory
     {

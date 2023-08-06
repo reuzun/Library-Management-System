@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Text.Json;
-using LibMs.API.Cache;
+using LibMS.API.Cache;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;
 
-namespace LibMs.API.Attributes
+namespace LibMS.API.Attributes
 {
 	public class InvalidateCacheAttribute : ActionFilterAttribute
     {

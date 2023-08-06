@@ -1,8 +1,9 @@
 ﻿using System;
-using LibMs.Data.Dtos;
-using LibMs.Data.Entities;
+using LibMS.Data;
+using LibMS.Data.Dtos;
+using LibMS.Data.Entities;
 
-namespace LibMs.Data.Repositories
+namespace LibMS.Data.Repositories
 {
 	public interface IRepository<T> : IODataRepository<T> where T : IEntity, new()
     {

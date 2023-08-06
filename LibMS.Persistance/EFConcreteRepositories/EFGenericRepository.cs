@@ -1,12 +1,12 @@
 ﻿using System;
-using LibMs.Data;
-using LibMs.Data.Dtos;
-using LibMs.Data.Entities;
-using LibMs.Data.Repositories;
+using LibMS.Data;
+using LibMS.Data.Dtos;
+using LibMS.Data.Entities;
+using LibMS.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 
-namespace LibMs.Persistance.EFConcreteRepositories
+namespace LibMS.Persistance.EFConcreteRepositories
 {
     public class EFGenericRepository<T> : IODataRepository<T>, IRepository<T> where T : class, IEntity, new()
     {

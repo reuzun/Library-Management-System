@@ -1,4 +1,4 @@
-﻿namespace LibMs.Data.Entities
+﻿namespace LibMS.Data.Entities
 {
 	public class Book : IEntity
 	{

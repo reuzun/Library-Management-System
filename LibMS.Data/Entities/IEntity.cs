@@ -1,5 +1,5 @@
 ﻿using System;
-namespace LibMs.Data.Entities
+namespace LibMS.Data.Entities
 {
 	public interface IEntity
 	{

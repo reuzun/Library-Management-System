@@ -1,5 +1,5 @@
 ﻿using System;
-namespace LibMs.API.Settings
+namespace LibMS.API.Settings
 {
 	public class DatabaseSettings
 	{

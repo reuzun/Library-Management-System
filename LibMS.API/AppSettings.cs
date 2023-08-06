@@ -1,7 +1,7 @@
 ﻿using System;
-using LibMs.API.Settings;
+using LibMS.API.Settings;
 
-namespace LibMs.API
+namespace LibMS.API
 {
 	public class AppSettings
 	{

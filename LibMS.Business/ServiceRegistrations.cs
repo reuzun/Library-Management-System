@@ -1,5 +1,5 @@
 ﻿using System;
-using LibMs.Data;
+using LibMS.Data;
 using LibMS.Business.Abstracts;
 using LibMS.Business.Concretes;
 using Microsoft.Extensions.DependencyInjection;

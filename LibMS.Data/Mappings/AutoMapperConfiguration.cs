@@ -1,9 +1,9 @@
 ﻿using System;
 using AutoMapper;
-using LibMs.Data.Dtos;
-using LibMs.Data.Entities;
+using LibMS.Data.Dtos;
+using LibMS.Data.Entities;
 
-namespace LibMs.Data.Mappings
+namespace LibMS.Data.Mappings
 {
 	public class AutoMapperConfiguration : Profile
 	{

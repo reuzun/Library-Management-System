@@ -1,10 +1,10 @@
-﻿using LibMs.Data.Entities;
-using LibMs.Data.Repositories;
-using LibMs.Persistance.EFConcreteRepositories;
+﻿using LibMS.Data.Entities;
+using LibMS.Data.Repositories;
+using LibMS.Persistance.EFConcreteRepositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LibMs.Persistance
+namespace LibMS.Persistance
 {
     public static class EFServiceRegistration
     {

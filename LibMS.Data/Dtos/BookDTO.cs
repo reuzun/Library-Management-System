@@ -1,7 +1,7 @@
 ﻿using System;
-using LibMs.Data.Entities;
+using LibMS.Data.Entities;
 
-namespace LibMs.Data.Dtos
+namespace LibMS.Data.Dtos
 {
 	public class BookDTO
 	{

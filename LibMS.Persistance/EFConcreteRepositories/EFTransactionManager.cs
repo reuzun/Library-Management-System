@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
-using LibMs.Data.Entities;
-using LibMs.Data.Repositories;
+using LibMS.Data.Entities;
+using LibMS.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibMs.Persistance
+namespace LibMS.Persistance
 {
     public class EFTransactionManager : ITransactionManager
     {

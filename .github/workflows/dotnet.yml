@@ -63,7 +63,7 @@ jobs:
         # echo "Coverage: $COVERAGE"
 
         BADGE_COLOR=""
-        
+            
         if [ "$(echo "$COVERAGE < 30" | bc -l)" -eq 1 ]; then
           BADGE_COLOR="red"
         elif [ "$(echo "$COVERAGE >= 30 && $COVERAGE < 75" | bc -l)" -eq 1 ]; then
@@ -71,6 +71,9 @@ jobs:
         else
           BADGE_COLOR="brightgreen"
         fi
+        
+        echo "BADGE_COLOR: $BADGE_COLOR"
+
 
         BADGE_URL="https://img.shields.io/badge/Coverage-${COVERAGE}%25-${BADGE_COLOR}.svg"
         echo "[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)" > README.md

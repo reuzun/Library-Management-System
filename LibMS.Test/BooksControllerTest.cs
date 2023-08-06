@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using LibMs.API.Controllers;
-using LibMs.Data.Dtos;
-using LibMs.Data.Entities;
+using LibMS.API.Controllers;
+using LibMS.Data.Dtos;
+using LibMS.Data.Entities;
 using LibMS.Business.Abstracts;
 using LibMS.Test.MockData;
 using Microsoft.AspNetCore.Mvc;

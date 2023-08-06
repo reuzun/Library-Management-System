@@ -32,5 +32,19 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
 
-    - name: Test
-      run: dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs"
+    - name: Update Badge
+      run: |
+        # Extract coverage percentage from your coverage report (replace with your actual command)
+        COVERAGE=$(dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs" --logger trx | grep "Total Coverage" | awk '{print $3}')
+    
+        # Generate and update the badge URL
+        BADGE_URL="https://img.shields.io/badge/Coverage-${COVERAGE}%25-brightgreen.svg"
+        echo "[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)" > README.md
+        
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "GitHub Actions"
+        git add README.md
+        git commit -m "Update coverage badge [skip ci]"  # <-- Include [skip ci] here
+        git branch -M ${{ github.ref }}
+        git push origin ${{ github.ref }}
+

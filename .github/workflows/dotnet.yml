@@ -49,7 +49,7 @@ jobs:
         git add README.md
         git commit -m "Update coverage badge [skip ci]"  # <-- Include [skip ci] here
       
-        BRANCH_NAME="${{ github.ref#refs/heads/ }}"
+        BRANCH_NAME=$(basename ${{ github.ref }} | sed 's/refs\/heads\///')
 
         git branch -M $BRANCH_NAME
         git push origin $BRANCH_NAME

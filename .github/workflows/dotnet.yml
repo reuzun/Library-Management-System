@@ -16,7 +16,6 @@ jobs:
           os: [ubuntu-latest, windows-latest, macos-latest]
           node-version: [12.x]
 
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -29,25 +28,44 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore --no-cache
 
-    - name: Build
-      run: dotnet build --no-restore
+    - name: Build and Test
+      run: |
+        dotnet build --no-restore
+        dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs" --logger trx > test_results.trx
 
-    - name: Print username
-      run: echo "${{ secrets.GIT_USER_NAME }}"
+    - name: Publish Test Results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: test_results.trx
+
+  update-badge:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Download Test Results
+      uses: actions/download-artifact@v2
+      with:
+        name: test-results
+
+    - name: Extract Coverage
+      run: |
+        COVERAGE=$(grep "Total Coverage" test_results.trx | awk '{print $3}')
+        echo "Coverage: $COVERAGE"
 
     - name: Update Badge
       run: |
-        # Extract coverage percentage from your coverage report (replace with your actual command)
-        COVERAGE=$(dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs" --logger trx | grep "Total Coverage" | awk '{print $3}')
-    
-        # Generate and update the badge URL
-        BADGE_URL="https://img.shields.io/badge/Coverage-${COVERAGE}%25-brightgreen.svg"
+        BADGE_URL="https://img.shields.io/badge/Coverage-${{ env.COVERAGE }}%25-brightgreen.svg"
         echo "[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)" > README.md
         
         git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
         git config --global user.name "${{ secrets.GIT_USER_NAME }}"
         git add README.md
-        git commit -m "Update coverage badge [skip ci]"  # <-- Include [skip ci] here
+        git commit -m "Update coverage badge [skip ci]"
       
         BRANCH_NAME=$(basename ${{ github.ref }} | sed 's/refs\/heads\///')
 

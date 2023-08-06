@@ -30,12 +30,7 @@ jobs:
       run: dotnet restore --no-cache
 
     - name: Build
-      run: |
-        if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
-          dotnet build --no-restore -r linux-x64
-        else
-          dotnet build --no-restore
-        fi
+      run: dotnet build --no-restore
 
     - name: Test
       run: dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs"

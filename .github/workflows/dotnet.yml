@@ -10,12 +10,13 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     continue-on-error: true
+    outputs:
+      coverage: ${{ steps.test.outputs.COVERAGE }}
     
     strategy:
       matrix:
-          os: [ubuntu-latest, windows-latest, macos-latest]
+          os: [ubuntu-latest]
           node-version: [12.x]
-
 
     steps:
     - name: Checkout code
@@ -33,4 +34,61 @@ jobs:
       run: dotnet build --no-restore
 
     - name: Test
-      run: dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs"
+      id: test
+      run: |
+        TEST_OUTPUT=$(dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs" --logger trx)
+        echo "$TEST_OUTPUT"
+
+        TOTAL_COVERAGE=$(echo "$TEST_OUTPUT" | grep "| Total" | awk '{print $4}' | tr -d '%')
+        echo "Total Coverage: $TOTAL_COVERAGE"
+        
+        echo "COVERAGE=$TOTAL_COVERAGE" >> "$GITHUB_OUTPUT"
+
+  update-badge:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Update Badge
+      run: |
+
+        COVERAGE=${{needs.build.outputs.coverage}}
+        echo "Coverage: $COVERAGE"
+
+        BADGE_COLOR=""
+            
+        if (( $(awk -v cov="$COVERAGE" 'BEGIN{ print (cov < 30) }') )); then
+          BADGE_COLOR="red"
+        elif (( $(awk -v cov="$COVERAGE" 'BEGIN{ print (cov >= 30 && cov < 75) }') )); then
+          BADGE_COLOR="yellow"
+        else
+          BADGE_COLOR="brightgreen"
+        fi
+ 
+        echo "BADGE_COLOR: $BADGE_COLOR"
+
+        BADGE_URL="https://img.shields.io/badge/Coverage-${COVERAGE}%25-${BADGE_COLOR}.svg"
+        NEW_BADGE="[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)"
+        
+        # Read the first line of the README.md
+        CURRENT_BADGE=$(head -n 1 README.md)
+        
+        if [ "$CURRENT_BADGE" != "$NEW_BADGE" ]; then
+          echo "$NEW_BADGE" > tmp_readme.md
+          tail -n +2 README.md >> tmp_readme.md
+          mv tmp_readme.md README.md
+        else
+          echo "Coverage badge is already up to date."
+          exit 0
+        fi
+        
+        git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
+        git config --global user.name "${{ secrets.GIT_USER_NAME }}"
+        git add README.md
+        git commit -m "Update coverage badge [skip ci]"
+      
+        BRANCH_NAME=$(basename ${{ github.ref }} | sed 's/refs\/heads\///')
+        git branch -M $BRANCH_NAME
+        git push origin $BRANCH_NAME

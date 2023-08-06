@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.8" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibMS.Data\LibMs.Data.csproj" />
+    <ProjectReference Include="..\LibMS.Data\LibMS.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="EFConcreteRepositories\" />

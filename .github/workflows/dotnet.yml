@@ -64,16 +64,15 @@ jobs:
 
         BADGE_COLOR=""
             
-        if (( $(echo "$COVERAGE < 30" | bc -l) )); then
+        if (( $(awk -v cov="$COVERAGE" 'BEGIN{ print (cov < 30) }') )); then
           BADGE_COLOR="red"
-        elif (( $(echo "$COVERAGE >= 30 && $COVERAGE < 75" | bc -l) )); then
+        elif (( $(awk -v cov="$COVERAGE" 'BEGIN{ print (cov >= 30 && cov < 75) }') )); then
           BADGE_COLOR="yellow"
         else
           BADGE_COLOR="brightgreen"
         fi
-        
+ 
         echo "BADGE_COLOR: $BADGE_COLOR"
-
 
         BADGE_URL="https://img.shields.io/badge/Coverage-${COVERAGE}%25-${BADGE_COLOR}.svg"
         echo "[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)" > README.md

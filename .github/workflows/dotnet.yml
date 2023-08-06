@@ -29,16 +29,16 @@ jobs:
       run: dotnet restore --no-cache
 
     - name: Build and Test
+      id: run-tests
       run: |
         dotnet build --no-restore
-        dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs" --logger trx > test_results.trx
+        TEST_OUTPUT=$(dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs" --logger trx)
+        echo "$TEST_OUTPUT"
 
-    - name: Publish Test Results
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-results
-        path: test_results.trx
+        TOTAL_COVERAGE=$(echo "$TEST_OUTPUT" | grep "Total Coverage" | awk '{print $3}')
+        echo "Total Coverage: $TOTAL_COVERAGE"
+        
+        echo "COVERAGE=$TOTAL_COVERAGE" >> $GITHUB_ENV
 
   update-badge:
     needs: build
@@ -47,14 +47,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Download Test Results
-      uses: actions/download-artifact@v2
-      with:
-        name: test-results
-
     - name: Extract Coverage
       run: |
-        COVERAGE=$(grep "Total Coverage" test_results.trx | awk '{print $3}')
+        COVERAGE="${{ env.COVERAGE }}"
         echo "Coverage: $COVERAGE"
 
     - name: Update Badge
@@ -68,7 +63,6 @@ jobs:
         git commit -m "Update coverage badge [skip ci]"
       
         BRANCH_NAME=$(basename ${{ github.ref }} | sed 's/refs\/heads\///')
-
         git branch -M $BRANCH_NAME
         git push origin $BRANCH_NAME
 

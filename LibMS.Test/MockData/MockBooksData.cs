@@ -1,6 +1,6 @@
 ﻿using System;
-using LibMs.Data.Dtos;
-using LibMs.Data.Entities;
+using LibMS.Data.Dtos;
+using LibMS.Data.Entities;
 
 namespace LibMS.Test.MockData
 {

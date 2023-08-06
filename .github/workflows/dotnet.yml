@@ -44,29 +44,28 @@ jobs:
         
         echo "COVERAGE=$TOTAL_COVERAGE" >> "$GITHUB_OUTPUT"
 
+  update-badge:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Extract Coverage
+      run: |
+        COVERAGE=${{needs.build.outputs.coverage}}
+        echo "Coverage: $COVERAGE"
+
     - name: Update Badge
       run: |
-        COVERAGE="${{ needs.build.outputs.coverage }}"
-        BADGE_COLOR=""
-
-        # Determine badge color based on coverage value
-        if (( $(echo "$COVERAGE < 30" | bc -l) )); then
-          BADGE_COLOR="red"
-        elif (( $(echo "$COVERAGE >= 30 && $COVERAGE < 75" | bc -l) )); then
-          BADGE_COLOR="yellow"
-        else
-          BADGE_COLOR="brightgreen"
-        fi
-
-        BADGE_URL="https://img.shields.io/badge/Coverage-${COVERAGE}%25-${BADGE_COLOR}.svg"
+        BADGE_URL="https://img.shields.io/badge/Coverage-${{ needs.build.outputs.coverage }}%25-brightgreen.svg"
         echo "[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)" > README.md
-
+        
         git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
         git config --global user.name "${{ secrets.GIT_USER_NAME }}"
         git add README.md
-        git commit -m "ci(generated-commit): Updates coverage badge [skip ci]"
-
+        git commit -m "Update coverage badge [skip ci]"
+      
         BRANCH_NAME=$(basename ${{ github.ref }} | sed 's/refs\/heads\///')
         git branch -M $BRANCH_NAME
         git push origin $BRANCH_NAME
-

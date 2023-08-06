@@ -27,10 +27,10 @@ jobs:
         dotnet-version: '7.0.x'  # Replace with the correct version
 
     - name: Restore dependencies
-      run: dotnet restore LibMS.API.sln --no-cache
+      run: dotnet restore --no-cache
 
     - name: Build
-      run: dotnet build LibMS.API.sln --no-restore
+      run: dotnet build --no-restore
 
     - name: Test
-      run: dotnet build LibMS.API.sln --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs"
+      run: dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs"

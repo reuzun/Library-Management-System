@@ -58,7 +58,7 @@ jobs:
 
     - name: Update Badge
       run: |
-        
+        COVERAGE="${{ needs.build.outputs.coverage }}"
         BADGE_COLOR=""
         # Determine badge color based on coverage value
         if (( $(echo "$COVERAGE < 30" | bc -l) )); then

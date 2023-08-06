@@ -62,7 +62,7 @@ jobs:
         COVERAGE=${{needs.build.outputs.coverage}}
         echo "Coverage: $COVERAGE"
 
-        BADGE_URL="https://img.shields.io/badge/Coverage-${{ COVERAGE }}%25-brightgreen.svg"
+        BADGE_URL="https://img.shields.io/badge/Coverage-${{ $COVERAGE }}%25-brightgreen.svg"
         echo "[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)" > README.md
         
         git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"

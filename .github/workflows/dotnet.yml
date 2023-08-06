@@ -51,16 +51,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Extract Coverage
-      run: |
-        COVERAGE=${{needs.build.outputs.coverage}}
-        echo "Coverage: $COVERAGE"
-
     - name: Update Badge
       run: |
 
-        # COVERAGE=${{needs.build.outputs.coverage}}
-        # echo "Coverage: $COVERAGE"
+        COVERAGE=${{needs.build.outputs.coverage}}
+        echo "Coverage: $COVERAGE"
 
         BADGE_COLOR=""
             

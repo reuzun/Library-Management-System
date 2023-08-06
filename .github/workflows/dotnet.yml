@@ -64,9 +64,9 @@ jobs:
 
         BADGE_COLOR=""
             
-        if [ "$(echo "$COVERAGE < 30" | bc -l)" -eq 1 ]; then
+        if (( $(echo "$COVERAGE < 30" | bc -l) )); then
           BADGE_COLOR="red"
-        elif [ "$(echo "$COVERAGE >= 30 && $COVERAGE < 75" | bc -l)" -eq 1 ]; then
+        elif (( $(echo "$COVERAGE >= 30 && $COVERAGE < 75" | bc -l) )); then
           BADGE_COLOR="yellow"
         else
           BADGE_COLOR="brightgreen"

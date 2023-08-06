@@ -2,5 +2,3 @@
 
 # LibMS: Library Management System
 Tech Stack: ASP.NET Core 7, Entity Framework Core, PostgreSQL, Redis(StackExchangeRedis), Serilog, Xunit, Moq
-
-Test Addition

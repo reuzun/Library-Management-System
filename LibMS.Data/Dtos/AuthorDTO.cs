@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LibMs.Data.Dtos
+namespace LibMS.Data.Dtos
 {
 	public class AuthorDTO
 	{

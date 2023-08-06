@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using LibMs.Data.Mappings;
+using LibMS.Data.Mappings;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LibMs.Data
+namespace LibMS.Data
 {
 	public static class LibMSMapperRegistration
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibMs.API.Controllers
+namespace LibMS.API.Controllers
 {
 
     [ApiController]

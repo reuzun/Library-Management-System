@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using AutoMapper;
-using LibMs.Data.Dtos;
-using LibMs.Data.Entities;
-using LibMs.Data.Repositories;
+using LibMS.Data.Dtos;
+using LibMS.Data.Entities;
+using LibMS.Data.Repositories;
 using LibMS.Business.Abstracts;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,8 +1,8 @@
 ﻿using System;
-using LibMs.Data.Entities;
+using LibMS.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibMs.Persistance
+namespace LibMS.Persistance
 {
 	public class LibMSContext : DbContext
 	{

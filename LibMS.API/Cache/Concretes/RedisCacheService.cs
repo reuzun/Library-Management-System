@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace LibMs.API.Cache.Concretes
+namespace LibMS.API.Cache.Concretes
 {
 	public class RedisCacheService : ICacheService
 	{

@@ -1,15 +1,11 @@
-﻿using System;
-using LibMs.API.Attributes;
-using LibMs.API.Cache;
-using LibMs.API.Enums;
-using LibMs.Data.Dtos;
-using LibMs.Data.Entities;
-using LibMs.Data.Repositories;
+﻿using LibMS.API.Attributes;
+using LibMS.API.Enums;
+using LibMS.Data.Dtos;
 using LibMS.Business.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibMs.API.Controllers
+namespace LibMS.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]

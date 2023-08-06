@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace LibMs.API.Cache.Concretes
+namespace LibMS.API.Cache.Concretes
 {
 	public class MemoryCacheService : ICacheService
 	{

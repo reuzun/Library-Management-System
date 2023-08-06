@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace LibMs.Persistance
+namespace LibMS.Persistance
 {
     public class DesignTimeNoteDbContextFactory : IDesignTimeDbContextFactory<LibMSContext>
     {

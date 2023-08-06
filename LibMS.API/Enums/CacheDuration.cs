@@ -1,5 +1,5 @@
 ﻿using System;
-namespace LibMs.API.Enums
+namespace LibMS.API.Enums
 {
 	public class CacheDuration
 	{

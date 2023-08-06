@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime;
-using LibMs.Data.Dtos;
+using LibMS.Data.Dtos;
 using LibMS.Business.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibMs.API.Controllers
+namespace LibMS.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]

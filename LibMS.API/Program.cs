@@ -1,11 +1,11 @@
 ﻿
 using System.Text.Json.Serialization;
-using LibMs.API;
-using LibMs.API.Attributes;
-using LibMs.API.Cache;
-using LibMs.API.Cache.Concretes;
-using LibMs.API.Settings;
-using LibMs.Persistance;
+using LibMS.API;
+using LibMS.API.Attributes;
+using LibMS.API.Cache;
+using LibMS.API.Cache.Concretes;
+using LibMS.API.Settings;
+using LibMS.Persistance;
 using LibMS.Business;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 using Serilog;
 
 
-namespace LibMs
+namespace LibMS
 {
     public class Program
     {

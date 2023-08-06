@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LibMs.Data.Entities
+namespace LibMS.Data.Entities
 {
 	public class Author : IEntity
 	{

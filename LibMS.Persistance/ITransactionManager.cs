@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace LibMs.Persistance
+namespace LibMS.Persistance
 {
 	public interface ITransactionManager
 	{

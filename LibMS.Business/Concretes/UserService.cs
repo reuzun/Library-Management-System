@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data;
 using AutoMapper;
-using LibMs.Data.Dtos;
-using LibMs.Data.Entities;
-using LibMs.Data.Repositories;
-using LibMs.Persistance;
+using LibMS.Data.Dtos;
+using LibMS.Data.Entities;
+using LibMS.Data.Repositories;
+using LibMS.Persistance;
 using LibMS.Business.Abstracts;
 using Microsoft.EntityFrameworkCore;
 

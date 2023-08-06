@@ -1,5 +1,5 @@
 ﻿using System;
-namespace LibMs.Data.Dtos
+namespace LibMS.Data.Dtos
 {
 	public class UserDTO
 	{

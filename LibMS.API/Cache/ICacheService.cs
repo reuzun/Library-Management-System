@@ -1,5 +1,5 @@
 ﻿using System;
-namespace LibMs.API.Cache
+namespace LibMS.API.Cache
 {
 	public interface ICacheService
 	{

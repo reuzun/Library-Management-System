@@ -1,13 +1,13 @@
 ﻿using System;
-using LibMs.Data.Entities;
-using LibMs.Data.Repositories;
-using LibMs.Persistance.EFConcreteRepositories;
+using LibMS.Data.Entities;
+using LibMS.Data.Repositories;
+using LibMS.Persistance.EFConcreteRepositories;
 using LibMS.Business.Abstracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 
-namespace LibMs.API.OData
+namespace LibMS.API.OData
 {
     [ApiController]
     [Route("odata/[controller]")]

@@ -70,9 +70,19 @@ jobs:
         echo "BADGE_COLOR: $BADGE_COLOR"
 
         BADGE_URL="https://img.shields.io/badge/Coverage-${COVERAGE}%25-${BADGE_COLOR}.svg"
-        echo "[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)" > tmp_readme.md
-        tail -n +2 README.md >> tmp_readme.md
-        mv tmp_readme.md README.md
+        NEW_BADGE="[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)"
+        
+        # Read the first line of the README.md
+        CURRENT_BADGE=$(head -n 1 README.md)
+        
+        if [ "$CURRENT_BADGE" != "$NEW_BADGE" ]; then
+          echo "$NEW_BADGE" > tmp_readme.md
+          tail -n +2 README.md >> tmp_readme.md
+          mv tmp_readme.md README.md
+        else
+          echo "Coverage badge is already up to date."
+          exit 1  # Exit with non-zero status code
+        fi
         
         git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
         git config --global user.name "${{ secrets.GIT_USER_NAME }}"

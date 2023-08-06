@@ -10,6 +10,8 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     continue-on-error: true
+    outputs:
+      coverage: ${{ steps.Test.outputs.COVERAGE }}
     
     strategy:
       matrix:
@@ -28,17 +30,19 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore --no-cache
 
-    - name: Build and Test
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Test
       id: run-tests
       run: |
-        dotnet build --no-restore
         TEST_OUTPUT=$(dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs" --logger trx)
         echo "$TEST_OUTPUT"
 
         TOTAL_COVERAGE=$(echo "$TEST_OUTPUT" | grep "| Total" | awk '{print $4}' | tr -d '%')
         echo "Total Coverage: $TOTAL_COVERAGE"
         
-        echo "COVERAGE=$TOTAL_COVERAGE" >> $GITHUB_ENV
+        echo "COVERAGE=$TOTAL_COVERAGE" >> "$GITHUB_OUTPUT"
 
   update-badge:
     needs: build
@@ -49,7 +53,7 @@ jobs:
 
     - name: Extract Coverage
       run: |
-        COVERAGE="${{ env.COVERAGE }}"
+        COVERAGE=${{needs.job1.outputs.output1}}
         echo "Coverage: $COVERAGE"
 
     - name: Update Badge

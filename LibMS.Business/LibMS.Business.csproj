@@ -15,7 +15,7 @@
     <Folder Include="Concretes\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibMs.Data\LibMs.Data.csproj" />
-    <ProjectReference Include="..\LibMs.Persistance\LibMs.Persistance.csproj" />
+    <ProjectReference Include="..\LibMS.Data\LibMs.Data.csproj" />
+    <ProjectReference Include="..\LibMS.Persistance\LibMs.Persistance.csproj" />
   </ItemGroup>
 </Project>

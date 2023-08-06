@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LibMs.API\LibMs.API.csproj" />
+    <ProjectReference Include="..\LibMs.API\LibMS.API.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="MockData\" />

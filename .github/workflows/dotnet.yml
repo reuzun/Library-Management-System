@@ -48,6 +48,9 @@ jobs:
         git config --global user.name "${{ secrets.GIT_USER_NAME }}"
         git add README.md
         git commit -m "Update coverage badge [skip ci]"  # <-- Include [skip ci] here
-        git branch -M ${{ github.ref }}
-        git push origin ${{ github.ref }}
+      
+        BRANCH_NAME="${{ github.ref#refs/heads/ }}"
+
+        git branch -M $BRANCH_NAME
+        git push origin $BRANCH_NAME
 

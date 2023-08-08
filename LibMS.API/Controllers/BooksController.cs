@@ -52,7 +52,7 @@ namespace LibMS.API.Controllers
         public async Task<IActionResult> DeleteBook(Guid bookId)
         {
             await _bookService.DeleteBookAsync(bookId);
-            return Ok();
+            return NoContent();
         }
     }
 }

@@ -31,9 +31,9 @@ namespace LibMS.Test
 
             // Act
             IActionResult actionResult = await _controller.GetAllBooks();
-            OkObjectResult okObjectResult = Assert.IsType<OkObjectResult>(actionResult);
 
             // Assert
+            OkObjectResult okObjectResult = Assert.IsType<OkObjectResult>(actionResult);
             var actualBooks = okObjectResult.Value as List<Book>;
             Assert.NotNull(actualBooks);
             Assert.Equal(MockBooksData.BookList.Count(), actualBooks.Count);
@@ -52,9 +52,9 @@ namespace LibMS.Test
 
             // Act
             IActionResult actionResult = await _controller.GetBookById(bookById.BookId);
-            OkObjectResult okObjectResult = Assert.IsType<OkObjectResult>(actionResult);
 
             // Assert
+            OkObjectResult okObjectResult = Assert.IsType<OkObjectResult>(actionResult);
             var actualBook = okObjectResult.Value as Book;
             Assert.NotNull(actualBook);
             Assert.Equal(bookById.BookId, actualBook.BookId);
@@ -75,9 +75,9 @@ namespace LibMS.Test
 
             // Act
             IActionResult actionResult = await _controller.AddBook(MockBooksData.BookToAdd);
-            CreatedResult createdResult = Assert.IsType<CreatedResult>(actionResult);
 
             // Assert
+            CreatedResult createdResult = Assert.IsType<CreatedResult>(actionResult);
             var actualBook = createdResult.Value as Book;
             Assert.NotNull(actualBook);
 
@@ -86,6 +86,48 @@ namespace LibMS.Test
             Assert.Equal(MockBooksData.BookToAdd.PageCount, actualBook.PageCount);
             Assert.Equal(MockBooksData.BookToAdd.PublishDate, actualBook.PublishDate);
             Assert.Equal(MockBooksData.BookToAdd.LoanableCount, actualBook.LoanableCount);
+        }
+
+        [Fact]
+        public async Task DeleteBook_DeletesSingleBookWithGivenId()
+        {
+            // Arrange
+            _mockService
+                .Setup(service => service.DeleteBookAsync(It.IsAny<Guid>()))
+                .ReturnsAsync(MockBooksData.BookToAdd);
+
+            Book bookById = MockBooksData.BookList.First();
+
+            // Act
+            IActionResult actionResult = await _controller.DeleteBook(bookById.BookId);
+
+            // Assert
+            NoContentResult createdResult = Assert.IsType<NoContentResult>(actionResult);
+        }
+
+        [Fact]
+        public async Task UpdateBook_UpdatesSingleBookWithGivenId()
+        {
+            // Arrange
+            _mockService
+                .Setup(service => service.UpdateBookAsync(It.IsAny<Guid>(), It.IsAny<BookDTO>()))
+                .ReturnsAsync(MockBooksData.AddedBook);
+
+            Book bookById = MockBooksData.BookList.First();
+
+            // Act
+            IActionResult actionResult = await _controller.UpdateBook(bookById.BookId, MockBooksData.BookToAdd);
+
+            // Assert
+            OkObjectResult createdResult = Assert.IsType<OkObjectResult>(actionResult);
+            var updatedBook = createdResult.Value as Book;
+            Assert.NotNull(updatedBook);
+            //Assert.Equal(bookById.BookId, updatedBook.BookId);
+            Assert.Equal(MockBooksData.BookToAdd.BookName, updatedBook.BookName);
+            Assert.Equal(MockBooksData.BookToAdd.Description, updatedBook.Description);
+            Assert.Equal(MockBooksData.BookToAdd.PageCount, updatedBook.PageCount);
+            Assert.Equal(MockBooksData.BookToAdd.PublishDate, updatedBook.PublishDate);
+            Assert.Equal(MockBooksData.BookToAdd.LoanableCount, updatedBook.LoanableCount);
         }
     }
 }

@@ -53,6 +53,24 @@ namespace LibMS.Test.MockData
             Authors = new List<Author>() { new Author { AuthorId = new Guid(), AuthorName = "Author02" } },
             Users = null
         };
+
+        public static BookDTO UpdateBookDto = new BookDTO
+        {
+            BookName = "Book01_Updated"
+        };
+
+        public static Book UpdatedBook = new Book
+        {
+            BookId = new Guid("00d470c3-e87b-4b7a-a359-e81eaad86ca0"),
+            BookName = "Book01_Updated",
+            Description = "--",
+            PageCount = 123,
+            PublishDate = 1801,
+            TotalCount = 1,
+            LoanableCount = 1,
+            Authors = new List<Author>() { new Author { AuthorId = new Guid(), AuthorName = "Author01" } },
+            Users = null
+        };
     }
 }
 

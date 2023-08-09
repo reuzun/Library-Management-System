@@ -8,9 +8,9 @@ namespace LibMS.Business.Abstracts
 	{
         Task<IEnumerable<Author>> GetAuthorsAsync(Func<IQueryable<Author>, IQueryable<Author>>? query = null);
         IQueryable<Author> GetAuthors(Func<IQueryable<Author>, IQueryable<Author>>? query = null);
-        Task<Author> GetAuthorById(Guid bookId);
+        Task<Author?> GetAuthorByIdAsync(Guid bookId);
         Task<Author> AddAuthorAsync(AuthorDTO authorDto);
-		Task<Author> UpdateAuthorAsync(Guid id, AuthorDTO authorDto);
+		Task<Author?> UpdateAuthorAsync(Guid id, AuthorDTO authorDto);
 	}
 }
 

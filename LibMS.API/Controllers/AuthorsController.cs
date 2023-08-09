@@ -26,7 +26,15 @@ namespace LibMS.API.Controllers
         [HttpGet("{guid}")]
         public async Task<IActionResult> GetAuthorById(Guid guid)
         {
-            return Ok(await _authorService.GetAuthorById(guid));
+            var author = await _authorService.GetAuthorByIdAsync(guid);
+            if(author != null)
+            {
+                return Ok(author);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("")]
@@ -38,7 +46,14 @@ namespace LibMS.API.Controllers
         [HttpPut("{guid}")]
         public async Task<IActionResult> UpdateAuthor(Guid guid, [FromBody] AuthorDTO authorDto)
         {
-            return Ok(await _authorService.UpdateAuthorAsync(guid, authorDto));
+            var author = await _authorService.UpdateAuthorAsync(guid, authorDto);
+            if(author != null)
+            {
+                return Ok(author);
+            }else
+            {
+                return NotFound();
+            }
         }
 	}
 }

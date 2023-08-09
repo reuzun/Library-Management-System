@@ -12,13 +12,13 @@ namespace LibMS.Test
     public class BooksControllerTests
     {
         Mock<IBookService> _mockService;
-        BooksController _controller;
+        BooksController _booksController;
 
         public BooksControllerTests()
         {
             // Arrange
             _mockService = new Mock<IBookService>();
-            _controller = new BooksController(_mockService.Object);
+            _booksController = new BooksController(_mockService.Object);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace LibMS.Test
                 .ReturnsAsync(MockBooksData.BookList);
 
             // Act
-            IActionResult actionResult = await _controller.GetAllBooks();
+            IActionResult actionResult = await _booksController.GetAllBooks();
 
             // Assert
             OkObjectResult okObjectResult = Assert.IsType<OkObjectResult>(actionResult);
@@ -50,7 +50,7 @@ namespace LibMS.Test
                 .ReturnsAsync(bookById);
 
             // Act
-            IActionResult actionResult = await _controller.GetBookById(bookById.BookId);
+            IActionResult actionResult = await _booksController.GetBookById(bookById.BookId);
 
             // Assert
             OkObjectResult okObjectResult = Assert.IsType<OkObjectResult>(actionResult);
@@ -75,7 +75,7 @@ namespace LibMS.Test
                 .ReturnsAsync((Book)null);
 
             // Act
-            IActionResult actionResult = await _controller.GetBookById(bookById.BookId);
+            IActionResult actionResult = await _booksController.GetBookById(bookById.BookId);
 
             // Assert
             NotFoundResult okObjectResult = Assert.IsType<NotFoundResult>(actionResult);
@@ -90,7 +90,7 @@ namespace LibMS.Test
                 .ReturnsAsync(MockBooksData.AddedBook);
 
             // Act
-            IActionResult actionResult = await _controller.AddBook(MockBooksData.BookToAdd);
+            IActionResult actionResult = await _booksController.AddBook(MockBooksData.BookToAdd);
 
             // Assert
             CreatedResult createdResult = Assert.IsType<CreatedResult>(actionResult);
@@ -115,7 +115,7 @@ namespace LibMS.Test
             Book bookById = MockBooksData.BookList.First();
 
             // Act
-            IActionResult actionResult = await _controller.DeleteBook(bookById.BookId);
+            IActionResult actionResult = await _booksController.DeleteBook(bookById.BookId);
 
             // Assert
             NoContentResult createdResult = Assert.IsType<NoContentResult>(actionResult);
@@ -132,7 +132,7 @@ namespace LibMS.Test
             Book bookById = MockBooksData.BookList.First();
 
             // Act
-            IActionResult actionResult = await _controller.DeleteBook(bookById.BookId);
+            IActionResult actionResult = await _booksController.DeleteBook(bookById.BookId);
 
             // Assert
             NotFoundResult createdResult = Assert.IsType<NotFoundResult>(actionResult);
@@ -149,7 +149,7 @@ namespace LibMS.Test
             Book bookById = MockBooksData.BookList.First();
 
             // Act
-            IActionResult actionResult = await _controller.UpdateBook(bookById.BookId, MockBooksData.UpdateBookDto);
+            IActionResult actionResult = await _booksController.UpdateBook(bookById.BookId, MockBooksData.UpdateBookDto);
 
             // Assert
             OkObjectResult createdResult = Assert.IsType<OkObjectResult>(actionResult);
@@ -170,7 +170,7 @@ namespace LibMS.Test
             Book bookById = MockBooksData.BookList.First();
 
             // Act
-            IActionResult actionResult = await _controller.UpdateBook(bookById.BookId, MockBooksData.UpdateBookDto);
+            IActionResult actionResult = await _booksController.UpdateBook(bookById.BookId, MockBooksData.UpdateBookDto);
 
             // Assert
             NotFoundResult createdResult = Assert.IsType<NotFoundResult>(actionResult);

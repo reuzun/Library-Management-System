@@ -31,7 +31,7 @@ namespace LibMS.Business.Concretes
             return await _authorRepository.AsyncCreate(author);
         }
 
-        public async Task<Author> GetAuthorById(Guid authorId)
+        public async Task<Author?> GetAuthorByIdAsync(Guid authorId)
         {
             var author = await _authorRepository.AsyncReadFirst(a => a.Where(author => author.AuthorId == authorId));
             if(author != null)
@@ -62,7 +62,7 @@ namespace LibMS.Business.Concretes
             return (await _authorRepository.AsyncReadAll(b => b.Include(author => author.WrittenBooks)));
         }
 
-        public async Task<Author> UpdateAuthorAsync(Guid id, AuthorDTO authorDto)
+        public async Task<Author?> UpdateAuthorAsync(Guid id, AuthorDTO authorDto)
         {
             return await _authorRepository.AsyncUpdate(id, _mapper.Map(authorDto, new Author()));
         }

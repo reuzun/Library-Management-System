@@ -11,7 +11,7 @@ namespace LibMS.Data.Repositories
         public Task<T?> AsyncReadFirst(Func<IQueryable<T>, IQueryable<T>>? query = null);
         public Task<IEnumerable<T>> AsyncReadAll(Func<IQueryable<T>, IQueryable<T>>? query = null);
         public Task AsyncRemove(Guid objId);
-        public Task<T> AsyncUpdate(Guid objId, T obj);
+        public Task<T?> AsyncUpdate(Guid objId, T obj);
     }
 }
 

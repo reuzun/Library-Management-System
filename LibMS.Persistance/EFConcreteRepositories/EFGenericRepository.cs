@@ -68,7 +68,7 @@ namespace LibMS.Persistance.EFConcreteRepositories
             }
         }
 
-        public async Task<T> AsyncUpdate(Guid objId, T obj)
+        public async Task<T?> AsyncUpdate(Guid objId, T obj)
         {
             var entity = await _context.Set<T>().FindAsync(objId);
             entity = _mapper.Map(obj, entity);

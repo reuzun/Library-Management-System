@@ -29,7 +29,15 @@ namespace LibMS.API.Controllers
         [HttpGet("{guid}")]
         public async Task<IActionResult> GetBookById(Guid guid)
         {
-            return Ok(await _bookService.GetBookById(guid));
+            var book = await _bookService.GetBookById(guid);
+            if(book != null)
+            {
+                return Ok(book);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("")]
@@ -44,15 +52,30 @@ namespace LibMS.API.Controllers
         [InvalidateCache("/Books")]
         public async Task<IActionResult> UpdateBook(Guid guid, [FromBody] BookDTO bookDto)
         {
-            return Ok(await _bookService.UpdateBookAsync(guid, bookDto));
+            var book = await _bookService.UpdateBookAsync(guid, bookDto);
+            if(book != null)
+            {
+                return Ok(book);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpDelete("{guid}")]
         [InvalidateCache("/Books")]
         public async Task<IActionResult> DeleteBook(Guid bookId)
         {
-            await _bookService.DeleteBookAsync(bookId);
-            return NoContent();
+            var book = await _bookService.DeleteBookAsync(bookId);
+            if(book != null)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

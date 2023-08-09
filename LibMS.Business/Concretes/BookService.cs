@@ -24,7 +24,7 @@ namespace LibMS.Business.Concretes
             return _bookRepository.AsyncCreate(_mapper.Map<Book>(bookDto));
         }
 
-        public async Task<BookDTO> DeleteBookAsync(Guid bookId)
+        public async Task<BookDTO?> DeleteBookAsync(Guid bookId)
         {
             var book = await GetBookById(bookId);
             if(book != null)
@@ -34,7 +34,7 @@ namespace LibMS.Business.Concretes
             }
             else
             {
-                throw new Exception("Requested Book Is Not Available!");
+                return null;
             }
         }
 
@@ -72,7 +72,7 @@ namespace LibMS.Business.Concretes
             return book;
         }
 
-        public async Task<Book> GetBookById(Guid bookId)
+        public async Task<Book?> GetBookById(Guid bookId)
         {
             var book = await _bookRepository.AsyncReadFirst(b => b.Where(book => book.BookId == bookId));
             if(book != null)
@@ -80,7 +80,7 @@ namespace LibMS.Business.Concretes
                 return book;
             }else
             {
-                throw new Exception("Book not found!");
+                return null;
             }
         }
 

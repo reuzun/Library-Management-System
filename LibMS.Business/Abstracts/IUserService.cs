@@ -6,9 +6,9 @@ namespace LibMS.Business.Abstracts
 {
 	public interface IUserService
 	{
-		Task<User> ReadUser(Guid id);
-        Task<User> AddUser(UserDTO userDto);
-        Task<User> BorrowBook(Guid userId, Guid bookId, ushort maxAllowedBookLoanCount = 3);
+		Task<User?> ReadUserAsync(Guid id);
+        Task<User> AddUserAsync(UserDTO userDto);
+        Task<User> BorrowBookAsync(Guid userId, Guid bookId, ushort maxAllowedBookLoanCount = 3);
 	}
 }
 

@@ -25,12 +25,12 @@ namespace LibMS.Business.Concretes
             _transactionManager = transactionManager;
 		}
 
-        public async Task<User> AddUser(UserDTO userDto)
+        public async Task<User> AddUserAsync(UserDTO userDto)
         {
             return await _userRepository.AsyncCreate(_mapper.Map(userDto, new User()));
         }
 
-        public async Task<User> BorrowBook(Guid userId, Guid bookId, ushort maxAllowedBookLoanCount = 3)
+        public async Task<User> BorrowBookAsync(Guid userId, Guid bookId, ushort maxAllowedBookLoanCount = 3)
         {
             User userToReturn;
 
@@ -78,12 +78,12 @@ namespace LibMS.Business.Concretes
             return userToReturn;
         }
 
-        public async Task<User> ReadUser(Guid id)
+        public async Task<User?> ReadUserAsync(Guid id)
         {
             var user = await _userRepository.AsyncReadFirst(q => q.Include(user => user.LoanedBooks).Where(user => user.UserId == id));
             if(user == null)
             {
-                throw new Exception("User not Found!");
+                return null;
             }
             return user;
         }

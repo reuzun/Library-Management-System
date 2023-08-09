@@ -22,19 +22,27 @@ namespace LibMS.API.Controllers
         [HttpGet("{guid}")]
         public async Task<IActionResult> GetUser(Guid guid)
         {
-            return Ok(await _userService.ReadUser(guid));
+            var user = await _userService.ReadUserAsync(guid);
+            if(user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost("")]
         public async Task<IActionResult> AddUser([FromBody]UserDTO userDto)
         {
-            return Ok(await _userService.AddUser(userDto));
+            return Ok(await _userService.AddUserAsync(userDto));
         }
 
         [HttpPost("{guid}/books")]
         public async Task<IActionResult> RegisterBorrowBook(Guid guid, Guid bookId)
         {
-            return Created("", await _userService.BorrowBook(guid, bookId, _settings.AllowedBookLoanCount));
+            return Created("", await _userService.BorrowBookAsync(guid, bookId, _settings.AllowedBookLoanCount));
         }
     }
 }

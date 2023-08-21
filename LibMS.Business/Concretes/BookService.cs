@@ -1,20 +1,19 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
+using LibMS.Business.Abstracts;
 using LibMS.Data.Dtos;
 using LibMS.Data.Entities;
 using LibMS.Data.Repositories;
-using LibMS.Business.Abstracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibMS.Business.Concretes
 {
     public class BookService : IBookService
-	{
+    {
         IRepository<Book> _bookRepository;
         IMapper _mapper;
 
-		public BookService(IRepository<Book> bookRepository, IMapper mapper)
-		{
+        public BookService(IRepository<Book> bookRepository, IMapper mapper)
+        {
             _bookRepository = bookRepository;
             _mapper = mapper;
         }
@@ -27,10 +26,10 @@ namespace LibMS.Business.Concretes
         public async Task<BookDTO?> DeleteBookAsync(Guid bookId)
         {
             var book = await GetBookById(bookId);
-            if(book != null)
+            if (book != null)
             {
                 await _bookRepository.AsyncRemove(book.BookId);
-                return new BookDTO{ };
+                return new BookDTO { };
             }
             else
             {
@@ -40,7 +39,7 @@ namespace LibMS.Business.Concretes
 
         public IQueryable<Book> GetBooks(Func<IQueryable<Book>, IQueryable<Book>>? query = null)
         {
-            if(query != null)
+            if (query != null)
             {
                 return query(_bookRepository.ReadAll().Include(book => book.Authors));
             }
@@ -49,36 +48,21 @@ namespace LibMS.Business.Concretes
 
         public async Task<IEnumerable<Book>> GetBooksAsync(Func<IQueryable<Book>, IQueryable<Book>>? query = null)
         {
-            if(query != null)
+            if (query != null)
             {
                 return (await _bookRepository.AsyncReadAll(b => query(b.Include(book => book.Authors))));
             }
             return (await _bookRepository.AsyncReadAll(b => b.Include(book => book.Authors)));
         }
 
-        public Task<Book?> GetBookByBookNameAndAuthorName(string bookName, string authorName)
-        {
-            var book = _bookRepository
-                .AsyncReadFirst(
-                b => b
-                    .Where(
-                        book => book.BookName == bookName &&
-                        book.Authors.Any(author => author.AuthorName == authorName)
-                    )
-                    .Include(b => b.Authors)
-                    .Include(b => b.Users)
-                );
-
-            return book;
-        }
-
         public async Task<Book?> GetBookById(Guid bookId)
         {
             var book = await _bookRepository.AsyncReadFirst(b => b.Where(book => book.BookId == bookId));
-            if(book != null)
+            if (book != null)
             {
                 return book;
-            }else
+            }
+            else
             {
                 return null;
             }

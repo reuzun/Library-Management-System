@@ -69,7 +69,7 @@ jobs:
  
         echo "BADGE_COLOR: $BADGE_COLOR"
 
-        BADGE_URL="https://img.shields.io/badge/Coverage-${COVERAGE}%25-${BADGE_COLOR}.svg"
+        BADGE_URL="https://img.shields.io/badge/Unit_Test_Coverage-${COVERAGE}%25-${BADGE_COLOR}.svg"
         NEW_BADGE="[![Coverage Status](${BADGE_URL})](https://your_coverage_report_url_here)"
         
         # Read the first line of the README.md

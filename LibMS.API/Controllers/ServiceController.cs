@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace LibMS.API.Controllers
 {
@@ -10,16 +9,15 @@ namespace LibMS.API.Controllers
     {
         AppSettings _settings;
 
-		public ServiceController(AppSettings settings)
-		{
-            _settings = settings;;
-		}
-
-
-        [HttpGet("settings")]
-        public IActionResult GetAllBooks()
+        public ServiceController(AppSettings settings)
         {
-            return Ok(_settings);
+            _settings = settings; ;
+        }
+
+        [HttpGet("info")]
+        public IActionResult GetInfo()
+        {
+            return Ok(new { Service = "LibMS" });
         }
     }
 }

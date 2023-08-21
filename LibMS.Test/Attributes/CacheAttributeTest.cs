@@ -1,18 +1,14 @@
-﻿using Xunit;
-using Moq;
+﻿using LibMS.API.Attributes;
 using LibMS.API.Cache;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.DependencyInjection;
-using Serilog;
-using LibMS.API.Attributes;
 using Microsoft.AspNetCore.Routing;
-using System;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Moq;
 
-namespace LibMS.Test
+namespace LibMS.Test.Attributes
 {
     public class CacheAttributeTest
     {
@@ -21,7 +17,8 @@ namespace LibMS.Test
         ActionExecutingContext _context;
         ActionExecutedContext _executedContext;
 
-        public CacheAttributeTest() {
+        public CacheAttributeTest()
+        {
             _mockCacheService = new Mock<ICacheService>();
 
             var serviceProvider = new ServiceCollection()
@@ -71,7 +68,24 @@ namespace LibMS.Test
             _mockCacheService.Setup(mock => mock.GetAsync<string>(It.IsAny<string>())).ReturnsAsync((string)null);
 
             var attribute = new CacheAttribute();
-            attribute.Duration = 10;
+            attribute.Duration = 5;
+
+            // Act
+            await attribute.OnActionExecutionAsync(_context, () => Task.FromResult(_executedContext));
+
+            // Assert
+            _mockCacheService.Verify(mock => mock.SetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<TimeSpan?>()), Times.Once);
+            Assert.IsType<OkObjectResult>(_executedContext.Result);
+        }
+
+        [Fact]
+        public async Task OnActionExecutionAsync_CachedDataNotFound_SavesAndReturnsActionResult_NoTimeLimitation()
+        {
+            // Arrange
+            _mockCacheService.Setup(mock => mock.GetAsync<string>(It.IsAny<string>())).ReturnsAsync((string)null);
+
+            var attribute = new CacheAttribute();
+            attribute.Duration = -1;
 
             // Act
             await attribute.OnActionExecutionAsync(_context, () => Task.FromResult(_executedContext));

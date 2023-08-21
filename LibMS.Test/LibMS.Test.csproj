@@ -34,11 +34,13 @@
     <None Remove="MockData\" />
     <None Remove="Controllers\" />
     <None Remove="Caches\" />
+    <None Remove="Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MockData\" />
     <Folder Include="Controllers\" />
     <Folder Include="Caches\" />
+    <Folder Include="Attributes\" />
   </ItemGroup>
   
   <PropertyGroup>

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using AutoMapper;
 using LibMS.Data;
-using LibMS.Data.Dtos;
 using LibMS.Data.Entities;
 using LibMS.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 
 namespace LibMS.Persistance.EFConcreteRepositories
 {
@@ -56,21 +54,17 @@ namespace LibMS.Persistance.EFConcreteRepositories
             if (book != null)
             {
                 _context.Set<T>().Remove(book);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }catch(Exception e)
-                {
-                    Console.WriteLine("------------------");
-                    Console.WriteLine(e);
-                    Console.WriteLine("------------------");
-                }
+                await _context.SaveChangesAsync();
             }
         }
 
         public async Task<T?> AsyncUpdate(Guid objId, T obj)
         {
             var entity = await _context.Set<T>().FindAsync(objId);
+            if (entity == null)
+            {
+                return null;
+            }
             entity = _mapper.Map(obj, entity);
             await _context.SaveChangesAsync();
             return entity;

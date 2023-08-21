@@ -1,16 +1,17 @@
-﻿using System;
-using LibMS.Data.Entities;
+﻿using LibMS.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibMS.Persistance
 {
-	public class LibMSContext : DbContext
-	{
+    public class LibMSContext : DbContext
+    {
         DbSet<Book> Books { get; set; }
         DbSet<User> Users { get; set; }
         DbSet<Author> Authors { get; set; }
 
         public LibMSContext(DbContextOptions options) : base(options) { }
+
+        public LibMSContext() : base() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

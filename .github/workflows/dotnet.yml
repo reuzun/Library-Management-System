@@ -36,7 +36,7 @@ jobs:
     - name: Test
       id: test
       run: |
-        TEST_OUTPUT=$(dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs" --logger trx)
+        TEST_OUTPUT=$(dotnet test --no-build /p:CollectCoverage=true /p:ExcludeByFile="**/*Migrations/*.cs%2c**/program.cs" --logger trx)
         echo "$TEST_OUTPUT"
 
         TOTAL_COVERAGE=$(echo "$TEST_OUTPUT" | grep "| Total" | awk '{print $4}' | tr -d '%')
